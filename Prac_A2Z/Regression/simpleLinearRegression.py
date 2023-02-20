@@ -41,3 +41,7 @@ def plotGraphTest():
 
 plotGraphTrain()
 plotGraphTest()
+
+
+print(regressor.coef_)
+print(regressor.intercept_)
