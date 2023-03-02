@@ -24,7 +24,40 @@ from sklearn.preprocessing import StandardScaler
 sc_X = StandardScaler()
 sc_Y = StandardScaler()
 # here we need to create two scaler object
+# because sclae of both variable is different
 X = sc_X.fit_transform(X)
 X
 Y = sc_Y.fit_transform(Y)
 Y
+
+# Model creation
+
+from sklearn.svm import SVR
+
+regressor = SVR(kernel='rbf')
+regressor.fit(X,Y)
+
+# we nee to reverse the scaling used to input the model
+# getting predictions
+sc_Y.inverse_transform(regressor.predict(sc_X.transform([[6.5]])).reshape(-1,1))
+
+
+def plotSVRGraph():
+    plt.scatter(sc_X.inverse_transform(X), sc_Y.inverse_transform(Y), color = 'Red')
+    plt.plot(sc_X.inverse_transform(X), sc_Y.inverse_transform(regressor.predict(X).reshape(-1,1)), color = 'Blue')
+    plt.title("SVR Model")
+    plt.xlabel("Position Level")
+    plt.ylabel('Salary')
+
+plotSVRGraph()
+
+def plotSVRGraph_HD():
+    X_grid = np.arange(min(sc_X.inverse_transform(X)), max(sc_X.inverse_transform(X)),0.1)
+    X_grid = X_grid.reshape((len(X_grid),1))
+    plt.scatter(sc_X.inverse_transform(X),sc_Y.inverse_transform(Y) , color = 'Red')
+    plt.plot(X_grid, sc_Y.inverse_transform(regressor.predict(sc_X.transform(X_grid)).reshape(-1,1)), color = 'Blue')
+    plt.title("SVR Model")
+    plt.xlabel("Position Level")
+    plt.ylabel('Salary')
+
+plotSVRGraph_HD()
