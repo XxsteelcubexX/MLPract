@@ -8,8 +8,10 @@ from sklearn.metrics import confusion_matrix, accuracy_score
 
 path = '/home/piyush/Projects/MLPract/dataSets/data_A2Z/'
 fileName = 'Social_Network_Ads.csv'
+testFile = 'BreastCancer.csv'
 
-dataSet = pd.read_csv(path+fileName)
+#dataSet = pd.read_csv(path+fileName)
+dataSet = pd.read_csv(path+testFile)
 X = dataSet.iloc[:,:-1].values
 Y = dataSet.iloc[:,-1].values
 
